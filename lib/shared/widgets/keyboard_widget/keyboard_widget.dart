@@ -2,7 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:pokedex/shared/styles/app_colors.dart';
 
 class KeyboardWidget extends StatelessWidget {
-  const KeyboardWidget({ Key? key }) : super(key: key);
+  final VoidCallback upArrowKey;
+  final VoidCallback downArrowKey;
+  final VoidCallback leftArrowKey;
+  final VoidCallback rightArrowKey;  
+
+  const KeyboardWidget({
+     Key? key,
+     required this.upArrowKey,
+     required this.downArrowKey,
+     required this.leftArrowKey,
+     required this.rightArrowKey
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +22,7 @@ class KeyboardWidget extends StatelessWidget {
       children: [
 
         GestureDetector(
-          onTap: (){
-            print('Up_Arrow');
-          },
+          onTap: upArrowKey,
           child: Container(
             width: 40,
             height: 45,
@@ -22,7 +31,8 @@ class KeyboardWidget extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5)
-                )
+                ),
+              
             ),
           ),
         ),
