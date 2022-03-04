@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/shared/styles/app_audio.dart';
 import 'package:pokedex/shared/styles/app_colors.dart';
 import 'package:pokedex/shared/widgets/keyboard_widget/keyboard_widget.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class ToolsWidget extends StatelessWidget {
   const ToolsWidget({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       children: [
 
@@ -73,10 +76,22 @@ class ToolsWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 10,bottom: 80),
           child: KeyboardWidget(
-            upArrowKey: (){},
-            downArrowKey: (){},
-            leftArrowKey: (){},
-            rightArrowKey: (){},
+            upArrowKey: () {
+              final player = AudioCache();
+              player.play(AppAudio.arrowButtonsSound);
+            },
+            downArrowKey: (){
+              final player = AudioCache();
+              player.play(AppAudio.arrowButtonsSound);
+            },
+            leftArrowKey: (){
+              final player = AudioCache();
+              player.play(AppAudio.arrowButtonsSound);
+            },
+            rightArrowKey: (){
+              final player = AudioCache();
+              player.play(AppAudio.arrowButtonsSound);
+            },
           ),
         )
 

@@ -42,9 +42,7 @@ class KeyboardWidget extends StatelessWidget {
           children: [
 
             GestureDetector(
-              onTap: (){
-                print('Left_Arrow');
-              },
+              onTap: leftArrowKey,
               child: Container(
                 width: 45,
                 height: 40,
@@ -83,9 +81,7 @@ class KeyboardWidget extends StatelessWidget {
             ),             
 
             GestureDetector(
-              onTap: (){
-                print('Right_Arrow');
-              },
+              onTap: rightArrowKey,
               child: Container(
                 width: 45,
                 height: 40,
@@ -103,9 +99,7 @@ class KeyboardWidget extends StatelessWidget {
         ),
 
         GestureDetector(
-          onTap: (){
-            print('Down_Arrow');
-          },
+          onTap: downArrowKey,
           child: Container(
             width: 40,
             height: 45,

@@ -14,8 +14,7 @@ class ScreenWidget extends StatelessWidget {
         alignment: AlignmentDirectional.topCenter,
         children: [
           SvgPicture.asset(
-            AppImages.screenbackground,
-            color: AppColors.screenbackground,
+            AppImages.test,
           ),
 
           Padding(
