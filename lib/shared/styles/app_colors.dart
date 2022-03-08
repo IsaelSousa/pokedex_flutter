@@ -5,6 +5,7 @@ class AppColors {
   static const background = Color(0xFFF942222);
   static const screenbackground = Color(0xFFFC4C4C4);
   static const screenoff = Color(0xFFF232323);
+  static const keyboardboxshadow = Color(0xFFF353535);
   static const greenscreen = Color(0xFFF77AE7C);
   static const bottomscreen = Color(0xFFF53AE5C);
   static const scancameraback = Color(0xFFF1842AC);

@@ -32,7 +32,13 @@ class KeyboardWidget extends StatelessWidget {
                 topLeft: Radius.circular(5),
                 topRight: Radius.circular(5)
                 ),
-              
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.keyboardboxshadow,
+                  offset: Offset(-6, 0),
+                  // spreadRadius: 5
+                )
+              ]
             ),
           ),
         ),
@@ -51,7 +57,14 @@ class KeyboardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(5),
                     bottomLeft: Radius.circular(5)
+                    ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.keyboardboxshadow,
+                      offset: Offset(0, 4),
+                      spreadRadius: 3
                     )
+                  ]                 
                 ),
               ),
             ),            
@@ -73,7 +86,7 @@ class KeyboardWidget extends StatelessWidget {
                   height: 15,
                   decoration: BoxDecoration(
                     color: Color(0xFFF3A3A3A),
-                    borderRadius: BorderRadius.circular(100)
+                    borderRadius: BorderRadius.circular(100),
                   ),
                 ),
 
@@ -90,7 +103,13 @@ class KeyboardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(5),
                     bottomRight: Radius.circular(5)
+                    ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.keyboardboxshadow,
+                      offset: Offset(0, 7),
                     )
+                  ]
                 ),
               ),
             ),  
@@ -108,7 +127,14 @@ class KeyboardWidget extends StatelessWidget {
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(5),
                 bottomRight: Radius.circular(5)
+                ),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.keyboardboxshadow,
+                  offset: Offset(-4, 2),
+                  spreadRadius: 2
                 )
+              ]
             ),
           ),
         ),    

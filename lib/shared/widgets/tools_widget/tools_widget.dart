@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/shared/styles/app_audio.dart';
 import 'package:pokedex/shared/styles/app_colors.dart';
 import 'package:pokedex/shared/widgets/keyboard_widget/keyboard_widget.dart';
-import 'package:audioplayers/audioplayers.dart';
 
-class ToolsWidget extends StatelessWidget {
-  const ToolsWidget({ Key? key }) : super(key: key);
+class ToolsWidget extends StatefulWidget {
+  final VoidCallback upArrow;
+  final VoidCallback downArrow;
+  final VoidCallback leftArrow;
+  final VoidCallback rightArrow;
+  const ToolsWidget({
+  Key? key,
+  required this.upArrow,
+  required this.downArrow,
+  required this.leftArrow,
+  required this.rightArrow }) : super(key: key);
 
+  @override
+  State<ToolsWidget> createState() => _ToolsWidgetState();
+}
+
+class _ToolsWidgetState extends State<ToolsWidget> {
   @override
   Widget build(BuildContext context) {
 
@@ -20,7 +32,14 @@ class ToolsWidget extends StatelessWidget {
             height: 50,
             decoration: BoxDecoration(
               color: AppColors.screenoff,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(100),
+            boxShadow: const [
+              BoxShadow(
+                color: AppColors.keyboardboxshadow,
+                offset: Offset(-2, 1),
+                spreadRadius: 1
+              )
+            ]
             ),
           ),
         ),
@@ -61,7 +80,7 @@ class ToolsWidget extends StatelessWidget {
               ),
 
               Container(
-                width: 140,
+                width: 120,
                 height: 70,
                 decoration: BoxDecoration(
                   color: AppColors.bottomscreen,
@@ -74,24 +93,12 @@ class ToolsWidget extends StatelessWidget {
         ),
 
         Padding(
-          padding: const EdgeInsets.only(left: 10,bottom: 80),
+          padding: const EdgeInsets.only(left: 20,bottom: 14),
           child: KeyboardWidget(
-            upArrowKey: () {
-              final player = AudioCache();
-              player.play(AppAudio.arrowButtonsSound);
-            },
-            downArrowKey: (){
-              final player = AudioCache();
-              player.play(AppAudio.arrowButtonsSound);
-            },
-            leftArrowKey: (){
-              final player = AudioCache();
-              player.play(AppAudio.arrowButtonsSound);
-            },
-            rightArrowKey: (){
-              final player = AudioCache();
-              player.play(AppAudio.arrowButtonsSound);
-            },
+            upArrowKey: widget.upArrow,
+            downArrowKey: widget.downArrow,
+            leftArrowKey: widget.leftArrow,
+            rightArrowKey: widget.rightArrow,
           ),
         )
 
