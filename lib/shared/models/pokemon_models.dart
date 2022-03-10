@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 class PokemonModel {
   String name;
   String type;
@@ -12,6 +9,7 @@ class PokemonModel {
   int specialAtk;
   int specialDef;
   int speed;
+  
 
   PokemonModel( 
     this.name,
@@ -38,18 +36,5 @@ class PokemonModel {
       json['stats'][5]['base_stat'] //speed
     );
   }
-
-  // Future<PokemonModel> fetch() async {
-  //   var url = Uri.http('pokeapi.co', '/api/v2/pokemon/1');
-  //   var response = await http.get(url);
-  //   var json = jsonDecode(response.body);
-  //   var poke = PokemonModel.fromJson(json);
-  //   return poke;
-  // }
-
-  // response() async {
-  //   final resp = await fetch();
-  //   return resp;
-  // }
 
 }

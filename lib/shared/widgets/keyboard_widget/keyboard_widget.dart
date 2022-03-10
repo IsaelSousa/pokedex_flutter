@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/shared/styles/app_colors.dart';
 
-class KeyboardWidget extends StatelessWidget {
+class KeyboardWidget extends StatefulWidget {
   final VoidCallback upArrowKey;
   final VoidCallback downArrowKey;
   final VoidCallback leftArrowKey;
@@ -16,13 +16,18 @@ class KeyboardWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<KeyboardWidget> createState() => _KeyboardWidgetState();
+}
+
+class _KeyboardWidgetState extends State<KeyboardWidget> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
 
         GestureDetector(
-          onTap: upArrowKey,
+          onTap: widget.upArrowKey,
           child: Container(
             width: 40,
             height: 45,
@@ -48,7 +53,7 @@ class KeyboardWidget extends StatelessWidget {
           children: [
 
             GestureDetector(
-              onTap: leftArrowKey,
+              onTap: widget.leftArrowKey,
               child: Container(
                 width: 45,
                 height: 40,
@@ -94,7 +99,7 @@ class KeyboardWidget extends StatelessWidget {
             ),             
 
             GestureDetector(
-              onTap: rightArrowKey,
+              onTap: widget.rightArrowKey,
               child: Container(
                 width: 45,
                 height: 40,
@@ -118,7 +123,7 @@ class KeyboardWidget extends StatelessWidget {
         ),
 
         GestureDetector(
-          onTap: downArrowKey,
+          onTap: widget.downArrowKey,
           child: Container(
             width: 40,
             height: 45,

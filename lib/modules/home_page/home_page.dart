@@ -25,6 +25,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var changeColor = false;
   var controller = HomePageController();
+  var controllerPoke = HomePageChangePoke();
+
 
   @override
   void initState() {
@@ -37,15 +39,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-  var controllerPoke = HomePageChangePoke();
-
   Future<PokeAllModels> pokeAll() async {
     var url = Uri.http('pokeapi.co', '/api/v2/pokemon');
     var response = await http.get(url);
     var json = jsonDecode(response.body);
-    var pokeall = PokeAllModels.fromJson(json);
+    var pokeall = PokeAllModels.fromJson(json, controllerPoke.currentPoke);
     if(response.statusCode == 200){
       return pokeall;
     } else {
@@ -53,8 +51,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<PokemonModel> pokeList(String name) async {    
-    var url = Uri.http('pokeapi.co', '/api/v2/pokemon/$name');
+  Future<PokemonModel> pokeList(urll) async {   
+    String a = urll.substring(18); 
+    var url = Uri.http('pokeapi.co', a);
     var response = await http.get(url);
     var json = jsonDecode(response.body);
     var poke = PokemonModel.fromJson(json);
@@ -65,64 +64,183 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+
+
+
     final pages = [
-      Container(),
+      Center(
+        child: Text('Iniciando...', style: GoogleFonts.pressStart2p(
+          color: Colors.white,
+          fontWeight: FontWeight.bold
+        ),),
+      ),
 
       FutureBuilder<PokeAllModels>(
         future: pokeAll(),
         builder: (context, snapshot){
           if(snapshot.hasError){
-            return const Center(
-              child: Text('Erro ao exibir os dados do servidor'),
+            return Center(
+              child: Text('Erro ao carregar a lista de pokemons', style: GoogleFonts.pressStart2p(
+                color: Colors.black
+              ),),
             );
           }
           if(snapshot.hasData){
-          return FutureBuilder<PokemonModel>(
-            future: pokeList(snapshot.data!.url),
-            builder: (context, snapshot){
-              if(snapshot.hasError){
+            return FutureBuilder<PokemonModel>(
+              future: pokeList(snapshot.data!.url),
+              builder: (context, snapshot){
+                if(snapshot.hasError){
+                  return Center(
+                    child: Text('Erro ao carregar a lista de pokemons', style: GoogleFonts.pressStart2p(
+                      color: Colors.black
+                    ),),
+                  );
+                }
+                if(snapshot.hasData){
+                  return PokeDataScreen(
+                  name: snapshot.data!.name,
+                  spriteUrl: snapshot.data!.spriteUrl,
+                  type: snapshot.data!.type);
+                }
                 return const Center(
-                  child: Text('Erro ao carregar a lista de pokemons'),
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  )
                 );
               }
-              if(snapshot.hasData){
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Text(snapshot.data!.name, style: GoogleFonts.pressStart2p(
-                    fontSize: 18,
-                    color: Colors.black
-                  ),),
-                  Image.network(snapshot.data!.spriteUrl),
-                  Text('Type', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                  Text(snapshot.data!.type, style: GoogleFonts.pressStart2p(
-                    fontSize: 14,
-                    color: Colors.black
-                  ))
-                  ],
-                );                
-              }
-
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-
-            },
-          );            
+            );
           }
 
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            )
           );
+        },
+      ),
 
+      FutureBuilder<PokeAllModels>(
+        future: pokeAll(),
+        builder: (context, snapshot){
+          if(snapshot.hasError){
+           return Center(
+             child: Text('Erro ao carregar a lista de pokemons', style: GoogleFonts.pressStart2p(
+                      color: Colors.black
+              ),),
+            );            
+          }
+          if(snapshot.hasData){
+            return FutureBuilder<PokemonModel>(
+              future: pokeList(snapshot.data!.url),
+              builder: (context, snapshot){
+                if(snapshot.hasError){
+                  return Center(
+                   child: Text('Erro ao carregar a lista de pokemons', style: GoogleFonts.pressStart2p(
+                     color: Colors.black
+                   ),), 
+                  );
+                }
+                if(snapshot.hasData){
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-HP: ${snapshot.data!.hp}',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-Atk: ${snapshot.data!.atk}',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-Def: ${snapshot.data!.def}',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-SP.Atk: ${snapshot.data!.specialAtk}',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-SP.Def: ${snapshot.data!.specialDef}',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-Speed: ${snapshot.data!.speed}',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text('-Total: ${
+                          snapshot.data!.hp + snapshot.data!.atk + snapshot.data!.def + snapshot.data!.specialAtk + snapshot.data!.specialDef + snapshot.data!.speed
+                        }',
+                        style: GoogleFonts.pressStart2p(
+                          fontSize: 13,
+                          color: Colors.black
+                        )
+                        ),
+                      ),
+
+                    ],
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                );
+              }
+            );
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          );
         },
       ),
 
       // FutureBuilder<PokemonModel>(
-      //   future: pokeList(),
+      //   future: pokeList(''),
       //   builder: (context, snapshot){
       //     if(snapshot.hasError){
       //       return const Center(
@@ -131,21 +249,66 @@ class _HomePageState extends State<HomePage> {
       //     }
       //     if(snapshot.hasData){
       //       return Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
       //         mainAxisAlignment: MainAxisAlignment.center,
       //         children: [
-      //         Text(snapshot.data!.name, style: GoogleFonts.pressStart2p(
-      //           fontSize: 18,
-      //           color: Colors.black
-      //         ),),
-      //         Image.network(snapshot.data!.spriteUrl),
-      //         Text('Type', style: GoogleFonts.pressStart2p(
-      //           fontSize: 13,
-      //           color: Colors.black
-      //         ),),
-      //         Text(snapshot.data!.type, style: GoogleFonts.pressStart2p(
-      //           fontSize: 14,
-      //           color: Colors.black
-      //         ))
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-HP: ${snapshot.data!.hp}', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-Atk: ${snapshot.data!.atk}', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-Def: ${snapshot.data!.def}', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-SP.Atk: ${snapshot.data!.specialAtk}', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-SP.Def: ${snapshot.data!.specialDef}', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-Speed: ${snapshot.data!.speed}', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
+      //           Padding(
+      //             padding: const EdgeInsets.only(bottom: 5),
+      //             child: Text('-Total', style: GoogleFonts.pressStart2p(
+      //               fontSize: 13,
+      //               color: Colors.black
+      //             ),),
+      //           ),
+
       //         ],
       //       );
       //     }
@@ -154,88 +317,8 @@ class _HomePageState extends State<HomePage> {
       //       child: CircularProgressIndicator(),
       //     );
       //   },
+
       // ),
-
-      FutureBuilder<PokemonModel>(
-        future: pokeList(''),
-        builder: (context, snapshot){
-          if(snapshot.hasError){
-            return const Center(
-              child: Text('Erro ao carregar a lista de pokemons'),
-            );
-          }
-          if(snapshot.hasData){
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-HP: ${snapshot.data!.hp}', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-Atk: ${snapshot.data!.atk}', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-Def: ${snapshot.data!.def}', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-SP.Atk: ${snapshot.data!.specialAtk}', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-SP.Def: ${snapshot.data!.specialDef}', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-Speed: ${snapshot.data!.speed}', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Text('-Total', style: GoogleFonts.pressStart2p(
-                    fontSize: 13,
-                    color: Colors.black
-                  ),),
-                ),
-
-              ],
-            );
-          }
-
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-
-      ),
 
 
     ];  
@@ -266,13 +349,16 @@ class _HomePageState extends State<HomePage> {
               leftArrow: (){
               final player = AudioCache();
               player.play(AppAudio.arrowButtonsSound);
-              controllerPoke.increment();
+              controllerPoke.decrement();                
+              setState(() {});  
               print(controllerPoke.currentPoke);
+              
               },
               rightArrow: (){
               final player = AudioCache();
               player.play(AppAudio.arrowButtonsSound); 
-              controllerPoke.decrement(); 
+              controllerPoke.increment(); 
+              setState(() {});  
               print(controllerPoke.currentPoke);
               },
             )
@@ -281,5 +367,45 @@ class _HomePageState extends State<HomePage> {
     
       ),
     );
+  }
+}
+
+class PokeDataScreen extends StatefulWidget {
+  final String name;
+  final String spriteUrl;
+  final String type;
+
+  const PokeDataScreen({
+     Key? key,
+     required this.name,
+     required this.spriteUrl,
+     required this.type
+  }) : super(key: key);
+
+  @override
+  State<PokeDataScreen> createState() => _PokeDataScreenState();
+}
+
+class _PokeDataScreenState extends State<PokeDataScreen> {
+  @override
+  Widget build(BuildContext context) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+    Text(widget.name, style: GoogleFonts.pressStart2p(
+      fontSize: 18,
+      color: Colors.black
+    ),),
+    Image.network(widget.spriteUrl),
+    Text('Type', style: GoogleFonts.pressStart2p(
+      fontSize: 13,
+      color: Colors.black
+    ),),
+    Text(widget.type, style: GoogleFonts.pressStart2p(
+      fontSize: 14,
+      color: Colors.black
+    ))
+    ],
+  );
   }
 }

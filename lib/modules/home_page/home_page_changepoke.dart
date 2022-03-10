@@ -2,16 +2,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class HomePageChangePoke {
-  var currentPoke = 1;
+  var currentPoke = 0;
 
   Future increment() async {
-    var url = Uri.http('pokeapi.co', '/api/v2/pokemon');
-    var response = await http.get(url);
-    var json = jsonDecode(response.body);
-    var count = json['count'];
+    // var url = Uri.http('pokeapi.co', '/api/v2/pokemon');
+    // var response = await http.get(url);
+    // var json = jsonDecode(response.body);
+    // var count = json['count'];
 
-    if (currentPoke > count){
-      currentPoke = 1;
+    if (currentPoke > 1126){
+      currentPoke = 0;
     } else {
       currentPoke++;      
     }
@@ -19,23 +19,15 @@ class HomePageChangePoke {
   }
 
   Future decrement() async {
-    var url = Uri.http('pokeapi.co', '/api/v2/pokemon');
-    var response = await http.get(url);
-    var json = jsonDecode(response.body);
-    var count = json['count'];    
+    // var url = Uri.http('pokeapi.co', '/api/v2/pokemon');
+    // var response = await http.get(url);
+    // var json = jsonDecode(response.body);
+    // var count = json['count'];    
 
-    if(currentPoke < 1){
-      currentPoke = count;
+    if(currentPoke < 0){
+      currentPoke = 1126;
     }
       currentPoke--;
-  }
-
-  void test() async {
-    var url = Uri.http('pokeapi.co', '/api/v2/pokemon');
-    var response = await http.get(url);
-    var json = jsonDecode(response.body);
-    var count = json['count'];     
-    print(count);
   }
 }
 

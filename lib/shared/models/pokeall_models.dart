@@ -9,10 +9,10 @@ class PokeAllModels {
 
    );
 
-  factory PokeAllModels.fromJson(Map json){
+  factory PokeAllModels.fromJson(Map json, int index){
     return PokeAllModels(
-      json['results']['name'], //name
-      json['results']['url'], //url
+      json['results'][index]['name'], //name
+      json['results'][index]['url'], //url
     );
   }
 
