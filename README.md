@@ -1,16 +1,16 @@
-# pokedex
+# Pokedex App
 
-A new Flutter project.
+Aplicativo desenvolvido em flutter, exibe uma pequena lista de pokemons e seus atributos, como: Tipo, HP, Ataque, defesa entre outros dados.
+O desenvolvimento foi feito apenas para testar tecnologias do Flutter, as dependências estarão contidas dentro do pubspec.yaml
 
-## Getting Started
+### Sobre o projeto  
+Os dados dos pokemons são gerados através de requisições http para uma API pública que contém as informações dos pokemons. O design foi feito com base na primeira pokedex(Kanto Dex).  
+  
+API: https://pokeapi.co/
 
-This project is a starting point for a Flutter application.
+### Design
+![PokeImage](assets/readme/poke1.png)
 
-A few resources to get you started if this is your first Flutter project:
+Figma: [Clique aqui para acessar o design](https://www.figma.com/file/idqqfmAz7G0BtchmqnWxAA/Pokedex?node-id=0%3A1  )
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Desenvolvido por: Isael Sousa :)
