@@ -10,6 +10,8 @@ API: https://pokeapi.co/
 
 ### Design
 
+![PokeImage](poke.png)
+
 Figma: [Clique aqui para acessar o design](https://www.figma.com/file/idqqfmAz7G0BtchmqnWxAA/Pokedex?node-id=0%3A1  )
 
 Desenvolvido por: Isael Sousa :)
