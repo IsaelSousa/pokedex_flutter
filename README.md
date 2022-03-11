@@ -9,7 +9,6 @@ Os dados dos pokemons são gerados através de requisições http para uma API p
 API: https://pokeapi.co/
 
 ### Design
-![PokeImage](assets/readme/poke1.png)
 
 Figma: [Clique aqui para acessar o design](https://www.figma.com/file/idqqfmAz7G0BtchmqnWxAA/Pokedex?node-id=0%3A1  )
 
